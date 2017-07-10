@@ -25,7 +25,8 @@ To build cAdvisor and the docker image you only need to run **deploy/build.sh**.
 As mentioned the binary can be directly used in ARM machines. To fix the building as docker image, I edited the dockerfile to run on arm devices. It uses the armhf version of alpine linux and some other packages because some of them are not available for ARM. Also the glibc is installed as it is a dependency.
 
 **Run in the PI**
-I have an image put in the docker hub for raspberry pi 3. It can be used by running the following -
+
+I have an image put in the docker hub for raspberry pi 3. It can be used by running the following
 ```
 sudo docker run \
   --volume=/:/rootfs:ro \
