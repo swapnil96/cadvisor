@@ -1,4 +1,23 @@
-# cAdvisor
+# This is a Fork!
+
+The original can be found [here](https://github.com/google/cadvisor). This fork is for ARM support for raspberry pi 3
+
+[Here](https://github.com/google/cadvisor/issues/1236) is a forum post for support of cAdvisor for ARM. Although it mentions to change [this](https://github.com/swapnil96/docker-arm-cadvisor/blob/master/build/build.sh) file but I found out that if we comile the source code in ARM environment than the bianry produced can be directly used in ARM machines. This might be due to later relases of cAdvisor.
+
+**Build the image yourself from scratch**
+
+Fist of all, you need to have Go installed (version 1.6). Therfore I used [golang](https://hub.docker.com/r/resin/raspberrypi-golang/) image for raspberry pi. Then simply run a container by 
+    docker run -it resin/raspberrypi-golang /bin/sh 
+Then simply run go get -d github.com/swapnil96/docker-arm-cadvisor to download this repo. Go to the downloaded files by 
+    cd $GOPATH/src/github.com/swapnil96/docker-arm-cadvisor/    
+To build cAdvisor and the docker image you only need to run deploy/build.sh. It will compile cAdvisor and build the docker image automatically (the image is named cadvisor:latest). The dockerfile is also in this
+ directory. If you want to do it step by step you can run `make build` to build cAdvisor and `docker build -t <name>/cade docker to build the docker image.
+
+**What was changed?**
+
+As mentioned the binary can be directly used in ARM machines. To fix the building as docker image, I edited the dockerfile to run on arm devices. It uses the armhf version of alpine linux and some other packages because some of them are not available for arm. Also the glibc is installed as it is a dependency.
+
+## cAdvisor
 
 cAdvisor (Container Advisor) provides container users an understanding of the resource usage and performance characteristics of their running containers. It is a running daemon that collects, aggregates, processes, and exports information about running containers. Specifically, for each container it keeps resource isolation parameters, historical resource usage, histograms of complete historical resource usage and network statistics. This data is exported by container and machine-wide.
 
