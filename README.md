@@ -24,6 +24,21 @@ To build cAdvisor and the docker image you only need to run **deploy/build.sh**.
 
 As mentioned the binary can be directly used in ARM machines. To fix the building as docker image, I edited the dockerfile to run on arm devices. It uses the armhf version of alpine linux and some other packages because some of them are not available for ARM. Also the glibc is installed as it is a dependency.
 
+**Run in the PI**
+I have an image put in the docker hub for raspberry pi 3. It can be used by running the following -
+```
+sudo docker run \
+  --volume=/:/rootfs:ro \
+  --volume=/var/run:/var/run:rw \
+  --volume=/sys:/sys:ro \
+  --volume=/var/lib/docker/:/var/lib/docker:ro \
+  --publish=8080:8080 \
+  --detach=true \
+  --name=cadvisor \
+  swapnil18/docker-arm-cadvisor:latest
+```
+
+
 ## cAdvisor
 
 cAdvisor (Container Advisor) provides container users an understanding of the resource usage and performance characteristics of their running containers. It is a running daemon that collects, aggregates, processes, and exports information about running containers. Specifically, for each container it keeps resource isolation parameters, historical resource usage, histograms of complete historical resource usage and network statistics. This data is exported by container and machine-wide.
